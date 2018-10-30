@@ -49,7 +49,8 @@ interface ERC20 {
 
 
 contract ERC20BridgeRecipient is BridgeRecipient {
-	event Deposit(address from, address recipient, uint256 value);
+	event Deposit(address indexed from, address indexed recipient, uint256 value);
+	event Withdraw(address indexed recipient, uint256 value);
 
 	address public bridgedRecipientAddress;
 	Bridge public bridge;
@@ -73,6 +74,8 @@ contract ERC20BridgeRecipient is BridgeRecipient {
 		(address recipient, uint256 value) = MessageSerialization.deserializeMessage(data);
 
 		require(erc20.transfer(recipient, value));
+
+		emit Withdraw(recipient, value);
 	}
 
 	function deposit(address recipient, uint256 value)
@@ -94,7 +97,7 @@ contract NativeBridgeRecipient is BridgeRecipient, BlockReward {
 		uint256 value;
 	}
 
-	event Minting(address recipient, uint256 value);
+	event Minting(address indexed recipient, uint256 value);
 	event Burned(uint256 value);
 
 	address constant BURN_ADDRESS = 0x0000000000000000000000000000000000000000;
