@@ -10,6 +10,9 @@
 
 ERC20 to Native token bridge.
 
+**Disclaimer**: The contracts in this repo should be considered **alpha** quality. They have not
+been audited or thoroughly tested yet.
+
 ## Description
 
 This repo contains contracts for bridging ERC20 tokens from one chain to native tokens (i.e. ETH) on
